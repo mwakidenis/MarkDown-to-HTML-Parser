@@ -1,23 +1,48 @@
-* { box-sizing: border-box; margin:0; padding:0; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MD to HTML Parser</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="md-parser.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div id="status">Loading…</div>
+    <div id="content" hidden></div>
+  </div>
 
-body {
-  background:#121212;
-  color:#fff;
-  font-family:'NeoDonggeunmo', monospace;
-  line-height:1.8;
-  padding: 2rem;
-}
+  <script>
+    (function () {
+      // Change this to the path of any Markdown file you want to render.
+      var MARKDOWN_FILE = 'content.md';
 
-#viewer { max-width: 1000px; margin: 0 auto; }
+      var status  = document.getElementById('status');
+      var content = document.getElementById('content');
 
-/* Markdown style */
-#viewer h1 { border-bottom: 2px solid #fff; margin-bottom: 1rem; }
-#viewer h2 { border-bottom: 1px solid #fff; margin-top: 2rem; }
-#viewer hr { border:none; border-top:2px solid #fff; margin:2rem 0; }
-#viewer blockquote { border-left:4px solid #fff; padding-left:1rem; margin:1rem 0; opacity:.85; }
-#viewer table { border-collapse:collapse; margin:1rem 0; }
-#viewer th, #viewer td { border:1px solid #fff; padding:6px 12px; }
-#viewer a { color:#fff; text-decoration: underline; }
-#viewer del { opacity:.6; }
-#viewer pre { background:#121212; padding:1rem; border:1px solid #fff; overflow-x:auto; }
-#viewer input[type="checkbox"] { accent-color: white; }
+      fetch(MARKDOWN_FILE)
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error('Could not load "' + MARKDOWN_FILE + '" (HTTP ' + response.status + ')');
+          }
+          return response.text();
+        })
+        .then(function (markdown) {
+          content.innerHTML = mdParser.parse(markdown);
+          status.hidden  = true;
+          content.hidden = false;
+
+          // Update the page title from the first <h1>, if present.
+          var h1 = content.querySelector('h1');
+          if (h1) {
+            document.title = h1.textContent + ' – MD to HTML Parser';
+          }
+        })
+        .catch(function (err) {
+          status.textContent = 'Error: ' + err.message;
+        });
+    })();
+  </script>
+</body>
+</html>
