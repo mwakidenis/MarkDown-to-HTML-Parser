@@ -1,0 +1,147 @@
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #24292e;
+  background: #f6f8fa;
+}
+
+/* Layout */
+#app {
+  max-width: 860px;
+  margin: 40px auto;
+  padding: 0 20px 60px;
+}
+
+/* Loading / error state */
+#status {
+  text-align: center;
+  color: #586069;
+  padding: 60px 0;
+  font-size: 1.1em;
+}
+
+/* Rendered Markdown container */
+#content {
+  background: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 40px 48px;
+}
+
+/* Headings */
+#content h1,
+#content h2,
+#content h3,
+#content h4,
+#content h5,
+#content h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #1b1f23;
+}
+
+#content h1 { font-size: 2em; border-bottom: 2px solid #e1e4e8; padding-bottom: 0.3em; }
+#content h2 { font-size: 1.5em; border-bottom: 1px solid #e1e4e8; padding-bottom: 0.3em; }
+#content h3 { font-size: 1.25em; }
+#content h4 { font-size: 1em; }
+#content h5 { font-size: 0.875em; }
+#content h6 { font-size: 0.85em; color: #586069; }
+
+/* Paragraphs & spacing */
+#content p { margin-bottom: 1em; }
+
+/* Links */
+#content a {
+  color: #0366d6;
+  text-decoration: none;
+}
+#content a:hover { text-decoration: underline; }
+
+/* Lists */
+#content ul,
+#content ol {
+  margin: 0 0 1em 1.5em;
+}
+#content li { margin-bottom: 0.25em; }
+
+/* Blockquote */
+#content blockquote {
+  margin: 0 0 1em 0;
+  padding: 0 1em;
+  color: #6a737d;
+  border-left: 4px solid #dfe2e5;
+}
+
+/* Code (inline) */
+#content code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9em;
+  background: #f3f4f5;
+  border-radius: 3px;
+  padding: 0.2em 0.4em;
+}
+
+/* Code blocks */
+#content pre {
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+  margin-bottom: 1em;
+}
+#content pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.875em;
+  line-height: 1.6;
+}
+
+/* Tables */
+#content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1em;
+}
+#content th,
+#content td {
+  border: 1px solid #dfe2e5;
+  padding: 8px 12px;
+  text-align: left;
+}
+#content th {
+  background: #f6f8fa;
+  font-weight: 600;
+}
+#content tr:nth-child(even) { background: #fafbfc; }
+
+/* Horizontal rule */
+#content hr {
+  border: none;
+  border-top: 2px solid #e1e4e8;
+  margin: 2em 0;
+}
+
+/* Images */
+#content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  #content {
+    padding: 24px 20px;
+  }
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MD to HTML Parser</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="md-parser.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div id="status">Loading…</div>
+    <div id="content" hidden></div>
+  </div>
+
+  <script>
+    (function () {
+      // Change this to the path of any Markdown file you want to render.
+      var MARKDOWN_FILE = 'content.md';
+
+      var status  = document.getElementById('status');
+      var content = document.getElementById('content');
+
+      fetch(MARKDOWN_FILE)
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error('Could not load "' + MARKDOWN_FILE + '" (HTTP ' + response.status + ')');
+          }
+          return response.text();
+        })
+        .then(function (markdown) {
+          content.innerHTML = mdParser.parse(markdown);
+          status.hidden  = true;
+          content.hidden = false;
+
+          // Update the page title from the first <h1>, if present.
+          var h1 = content.querySelector('h1');
+          if (h1) {
+            document.title = h1.textContent + ' – MD to HTML Parser';
+          }
+        })
+        .catch(function (err) {
+          status.textContent = 'Error: ' + err.message;
+        });
+    })();
+  </script>
+</body>
+</html>
