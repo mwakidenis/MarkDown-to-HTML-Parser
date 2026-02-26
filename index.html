@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MD to HTML Parser</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>MD → HTML Parser</h1>
+    <div class="controls">
+      <label for="md-url">Markdown file URL:</label>
+      <input type="text" id="md-url" placeholder="e.g. example.md" value="example.md" />
+      <button id="load-btn">Load</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="input-section">
+      <h2>Markdown Input</h2>
+      <textarea id="md-input" placeholder="Paste or type Markdown here…" spellcheck="false"></textarea>
+    </section>
+
+    <section id="output-section">
+      <h2>HTML Preview</h2>
+      <div id="html-preview"></div>
+    </section>
+  </main>
+
+  <script src="marked.min.js"></script>
+  <script>
+    // Fallback to CDN if local copy failed to load
+    if (typeof marked === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"><\/script>');
+    }
+  </script>
+  <script>
+    const mdInput   = document.getElementById('md-input');
+    const preview   = document.getElementById('html-preview');
+    const loadBtn   = document.getElementById('load-btn');
+    const mdUrlInput = document.getElementById('md-url');
+
+    // Configure marked for safe output
+    marked.setOptions({ breaks: true });
+
+    function render() {
+      preview.innerHTML = marked.parse(mdInput.value);
+    }
+
+    mdInput.addEventListener('input', render);
+
+    async function loadMarkdown(url) {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const text = await response.text();
+        mdInput.value = text;
+        render();
+      } catch (err) {
+        mdInput.value = `> **Error:** Could not load \`${url}\`\n>\n> ${err.message}`;
+        render();
+      }
+    }
+
+    loadBtn.addEventListener('click', () => {
+      const url = mdUrlInput.value.trim();
+      if (url) loadMarkdown(url);
+    });
+
+    // Load the default file on startup
+    loadMarkdown('example.md');
+  </script>
+</body>
+</html>
