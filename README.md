@@ -118,3 +118,7 @@ This project is licensed under the **Mozilla Public License 2.0 (MPL 2.0)**.
 ---
 
 ### ⭐ If you find this useful, consider starring the repository!
+
+## Links
+
+[![Hypercommit](https://img.shields.io/badge/Hypercommit-DB2475)](https://hypercommit.com/markdown-to-html-parser)
