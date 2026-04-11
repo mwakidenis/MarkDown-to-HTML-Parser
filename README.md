@@ -2,7 +2,7 @@
 # MD-to-HTML-Parser
 
 > **Add this to your website:** convert Markdown to HTML — entirely in the browser, no backend needed.
-
+ 
 This open-source project renders Markdown (`.md`) files as styled HTML using only:
 
 - **One HTML file** (`index.html`)
